@@ -4,14 +4,14 @@ require('dotenv').config();
 
 const getPlant = async (req, res) =>{
     try {
-        const { token } = req.query;
-
+        const { token, name } = req.query;
+        const decodificateName = decodeURIComponent(name);
         const plant = await Plant.findOne({
-            where:{ access_token:  token }
+            where:{ name:  decodificateName }
         });
 
         if(!plant){
-            const response = await axios.get(`https://plant.id/api/v3/kb/plants/:${token}?details=common_names,description,taxonomy,image`, {
+            const response = await axios.get(`https://plant.id/api/v3/kb/plants/:${token}-?details=common_names,description,taxonomy,image`, {
                 headers: {
                     'Api-Key': process.env.API_KEY
                 }
