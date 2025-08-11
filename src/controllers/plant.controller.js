@@ -54,7 +54,8 @@ const getPlants = async (req, res) =>{
         const filteredData = data.map((plant, i)=>({
             order: i + 1,
             name: plant.entity_name,
-            img: plant.thumbnail
+            img: plant.thumbnail,
+            access_token: plant.access_token
         }));
         res.json(filteredData);
     } catch (error) {
