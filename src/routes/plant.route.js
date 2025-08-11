@@ -4,6 +4,6 @@ const plantController = require('../controllers/plant.controller');
 
 router.get('/', plantController.getPlant);
 router.get('/plants', plantController.getPlants);
-
+router.post('/', plantController.postIdentification);
 
 module.exports = router;

@@ -43,7 +43,7 @@ const newMessage = async (req, res) =>{
 
         const newUserMessage = await Message.create({chat_role, content, id_chat});
         const newAssistantMessage = await Message.create({chat_role: response.choices[0].message.role, content: response.choices[0].message.content, id_chat});
-        res.json({newAssistantMessage});
+        res.json(newAssistantMessage);
     } catch (error) {
         res.status(500).json({error : error.message});
     }

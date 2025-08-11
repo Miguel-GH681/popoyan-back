@@ -55,13 +55,34 @@ const getPlants = async (req, res) =>{
             name: plant.entity_name,
             img: plant.thumbnail
         }));
-        return res.json(filteredData);
+        res.json(filteredData);
     } catch (error) {
         res.status(500).json({error : error.message});
     }
 }
 
+const postIdentification = async (req, res)=>{
+    try {
+        const { images, latitude, longitude, similar_images } = req.body;
+        const response = await axios.post(`https://plant.id/api/v3/identification?details=description,common_names&language=es`, {
+            images,
+            latitude,
+            longitude,
+            similar_images
+        }, {
+            headers: {
+                'Api-Key': process.env.API_KEY
+            }
+        });
+        const data = response.data.result.classification.suggestions;
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({error : error.message});
+    }    
+}
+
 module.exports = {
     getPlant,
-    getPlants
+    getPlants,
+    postIdentification
 }
