@@ -12,13 +12,14 @@ const getStatistics = async (req, res)=>{
 
         let data = [];
         data.push({
-            name: 'used', 
+            name: 'Usado',
             value: response.data.credit_limits.total - response.data.remaining.total
         },
         {
-            name: 'available',
+            name: 'Disponible',
             value: response.data.remaining.total
-        });
+        }
+    );
         res.json(data);
     } catch (error) {
         res.status(500).json({error : error.message});

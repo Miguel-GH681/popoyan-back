@@ -51,7 +51,8 @@ const getPlants = async (req, res) =>{
         });
 
         const data = await response.data.entities;
-        const filteredData = data.map((plant)=>({
+        const filteredData = data.map((plant, i)=>({
+            order: i + 1,
             name: plant.entity_name,
             img: plant.thumbnail
         }));

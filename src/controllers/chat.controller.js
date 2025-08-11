@@ -68,9 +68,22 @@ const getMessages = async(req, res)=>{
     }
 } 
 
+const deleteChat = async(req, res)=>{
+    try {
+        const { id_chat } = req.params;
+        await Message.destroy({where: {id_chat}});
+        await Chat.destroy({where: {id_chat}});
+
+        res.json({message: 'Records deleted successfully'});
+    } catch (error) {
+        res.status(500).json({error : error.message});
+    }
+}
+
 module.exports = {
     newChat,
     newMessage,
     getChats,
-    getMessages
+    getMessages,
+    deleteChat
 }
