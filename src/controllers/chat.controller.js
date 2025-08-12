@@ -52,6 +52,10 @@ const newMessage = async (req, res) =>{
 const getChats = async(req, res)=>{
     try {
         const chats = await Chat.findAll();
+        if(chats.length == 0){
+            const newChat = await Chat.create({title: 'Chat 1'});
+            return res.json([newChat]);
+        }
         res.json(chats)
     } catch (error) {
         res.status(500).json({error : error.message});

@@ -1,3 +1,4 @@
+const sequelize = require('../config/database');
 const Plant = require('../models/plant.model');
 const axios = require('axios');
 require('dotenv').config();
@@ -83,8 +84,18 @@ const postIdentification = async (req, res)=>{
     }    
 }
 
+const getFamilies = async (req, res) =>{
+    try {
+        const families = await sequelize.query('SELECT * FROM get_families();');
+        res.json(families[0]);
+    } catch (error) {
+        res.status(500).json({error : error.message}); 
+    }
+}
+
 module.exports = {
     getPlant,
     getPlants,
-    postIdentification
+    postIdentification,
+    getFamilies
 }
